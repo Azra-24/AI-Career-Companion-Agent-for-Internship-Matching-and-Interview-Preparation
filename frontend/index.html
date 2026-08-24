@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Internship Assistant - AI Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- ================= STAGE 1: LANDING PAGE ================= -->
+  <div id="landing-page" class="landing-container">
+    <!-- Navbar -->
+    <header class="landing-nav">
+      <div class="brand-logo">
+        <div class="brand-icon">✦</div>
+        <h2>InternshipAI</h2>
+      </div>
+      <div class="nav-actions">
+        <button id="btn-open-login" class="btn-secondary">Sign In</button>
+        <button id="btn-open-register" class="btn-primary">Get Started</button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">Next-Gen Career Intelligence</div>
+      <h1 class="hero-title">Intelligent Internship Matching<br><span class="gradient-text">Powered by Vector RAG</span></h1>
+      <p class="hero-subtitle">Upload your resume to extract candidate profiles, discover semantically aligned internships via vector embeddings, and generate tailored cover letters in seconds.</p>
+      
+      <div class="hero-cta-group">
+        <button id="hero-get-started" class="btn-primary btn-large">
+          <span>Create Free Account</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <button id="hero-guest-btn" class="btn-secondary btn-large">Continue as Guest</button>
+      </div>
+    </section>
+
+    <!-- Feature Grid -->
+    <section class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Hybrid Resume Parsing</h3>
+        <p>Extracts deep technical skills, projects, and work history into structured profiles using Gemini LLM and regex fallbacks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>FAISS Semantic Retrieval</h3>
+        <p>Goes beyond basic keywords to compute dense vector similarity and rank the best internship matches with precise readiness scores.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>AI Cover Letters & Gap Analysis</h3>
+        <p>Identifies missing requirement gaps and writes compelling, role-specific cover letters tailored to target job descriptions.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= AUTH MODAL (LOGIN / SIGN UP) ================= -->
+  <div id="auth-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button id="modal-close" class="modal-close-btn">&times;</button>
+      
+      <div class="modal-header">
+        <div class="brand-icon">✦</div>
+        <h3 id="modal-title">Welcome Back</h3>
+        <p id="modal-subtitle">Sign in to access your internship dashboard</p>
+      </div>
+
+      <!-- Segmented Switcher -->
+      <div class="auth-tabs">
+        <button id="tab-login-btn" class="auth-tab active">Sign In</button>
+        <button id="tab-register-btn" class="auth-tab">Create Account</button>
+      </div>
+
+      <form id="auth-form" class="auth-form-fields">
+        <div id="auth-name-group" class="form-group hidden">
+          <label>Full Name</label>
+          <input type="text" id="auth-name" class="input-field" placeholder="Shaik Azra Anisha">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="auth-email" class="input-field" placeholder="azrask24@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-password" class="input-field" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="btn-primary btn-full" style="margin-top: 10px;">
+          <span>Sign In</span>
+        </button>
+        <p id="auth-status" class="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= STAGE 2: MAIN DASHBOARD (HIDDEN INITIALLY) ================= -->
+  <div id="dashboard-view" class="app-layout hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">✦</div>
+        <h2>InternshipAI</h2>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="tab-matching">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Find Internships</span>
+        </button>
+        <button class="nav-item" data-tab="tab-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          <span>My Profile</span>
+        </button>
+        <button class="nav-item" data-tab="tab-applications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+          <span>Applied Jobs</span>
+        </button>
+        <button class="nav-item" data-tab="tab-skillgap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Skill Gap Analysis</span>
+        </button>
+        <button class="nav-item" data-tab="tab-coverletter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Cover Letter</span>
+        </button>
+        <button class="nav-item" data-tab="tab-ats">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M9 15l2 2 4-4"/>
+          </svg>
+          <span>ATS Resume Score</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="theme-toggle" class="btn-secondary btn-full" style="margin-bottom: 8px;">
+          <span class="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+        </button>
+        <button id="btn-logout" class="btn-secondary btn-full" style="color: var(--error);">
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="view-title">Find Internships</h1>
+          <p id="view-subtitle">Match parsed resumes to live opportunities via semantic vector retrieval.</p>
+        </div>
+        <div class="user-badge">
+          <div class="avatar" id="top-user-avatar">AZ</div>
+          <div class="user-info">
+            <span class="user-name" id="top-user-name">Shaik Azra Anisha</span>
+            <span class="user-email" id="top-user-email">azrask24@gmail.com</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- TAB 1: MATCHING & RESUME UPLOAD -->
+      <section id="tab-matching" class="tab-pane active">
+        <div class="card upload-card">
+          <div class="card-header">
+            <div class="step-indicator">1</div>
+            <h2>Upload Candidate Resume</h2>
+          </div>
+          <div class="dropzone" id="dropzone">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span class="dropzone-text" id="dropzone-text">Drop your resume (.PDF / .DOCX) or <span class="browse-link">browse</span></span>
+            <input id="resume" type="file" accept=".pdf,.docx" class="file-input">
+          </div>
+          <div class="action-row">
+            <button id="analyze" class="btn-primary">
+              <span>Parse & Search Internships</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <p id="status" class="status"></p>
+          </div>
+        </div>
+
+        <div id="matches-section" class="hidden">
+          <div class="card-header-actions">
+            <h2>Recommended Internships</h2>
+          </div>
+          <div id="matches" class="matches-grid"></div>
+
+          <div class="rag-container">
+            <div class="rag-header">
+              <svg class="ai-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+              <h3>Grounded RAG Matching Explanation</h3>
+            </div>
+            <pre id="explanation" class="explanation"></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: EDITABLE PROFILE -->
+      <section id="tab-profile" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions">
+            <h2>Candidate Profile</h2>
+            <span class="badge">Auto-Synced from Resume</span>
+          </div>
+          <form id="profile-form" class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="prof-name" class="input-field" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="prof-email" class="input-field" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="prof-phone" class="input-field" placeholder="Phone">
+            </div>
+            <div class="form-group">
+              <label>Education & University</label>
+              <input type="text" id="prof-edu" class="input-field" placeholder="Degree, Institution, Year">
+            </div>
+            <div class="form-group full-width">
+              <label>Skills (Comma-separated)</label>
+              <input type="text" id="prof-skills" class="input-field" placeholder="Python, Machine Learning, SQL...">
+              <div id="prof-skills-chips" class="chip-container" style="margin-top: 8px;"></div>
+            </div>
+            <div class="form-group full-width">
+              <label>Work Experience / Internships</label>
+              <textarea id="prof-exp" class="input-field textarea" rows="3" placeholder="Previous internships or roles"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Projects & Portfolios</label>
+              <textarea id="prof-projects" class="input-field textarea" rows="3" placeholder="Key projects and tech stack"></textarea>
+            </div>
+            <div class="form-actions full-width">
+              <button type="submit" class="btn-primary">Save Profile Changes</button>
+              <span id="profile-status" class="status"></span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 3: APPLIED JOBS & PIPELINE TRACKER -->
+      <section id="tab-applications" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions">
+            <h2>Applied Internships & Pipeline Tracker</h2>
+            <span class="badge" id="app-count-badge">0 Applications</span>
+          </div>
+          <div id="applications-list" class="applications-container"></div>
+        </div>
+      </section>
+
+      <!-- TAB 4: SKILL GAP ANALYSIS -->
+      <section id="tab-skillgap" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions">
+            <h2>Skill Gap & Readiness Analysis</h2>
+          </div>
+          <div id="skillgap-container"></div>
+        </div>
+      </section>
+
+      <!-- TAB 5: COVER LETTER GENERATOR -->
+      <section id="tab-coverletter" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions">
+            <h2>AI Cover Letter Generator</h2>
+            <span class="badge">Gemini-Powered</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Internship Title</label>
+              <input type="text" id="cl-title" class="input-field" placeholder="e.g. AI/ML Intern">
+            </div>
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" id="cl-company" class="input-field" placeholder="e.g. TechNova">
+            </div>
+            <div class="form-group">
+              <label>Tone</label>
+              <select id="cl-tone" class="input-field">
+                <option>Confident</option>
+                <option>Formal & Professional</option>
+                <option>Enthusiastic & Passionate</option>
+                <option>Concise & Direct</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Emphasize Specific Skills/Projects</label>
+              <input type="text" id="cl-emphasis" class="input-field" placeholder="e.g. NLP, RAG, Python Pipelines">
+            </div>
+            <div class="form-actions full-width">
+              <button id="btn-gen-coverletter" class="btn-primary">Generate Cover Letter</button>
+              <span id="cl-status" class="status"></span>
+            </div>
+          </div>
+          <div id="coverletter-result-box" class="rag-container hidden" style="margin-top: 24px; width: 100%;">
+            <div class="rag-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <h3>Generated Cover Letter Draft</h3>
+              <button id="btn-copy-cl" class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; font-weight: 600;">Copy to Clipboard</button>
+            </div>
+            <textarea id="cl-output"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: ATS RESUME SCORER -->
+      <section id="tab-ats" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions">
+            <h2>ATS Resume Optimization Scorer</h2>
+            <span class="badge">Gemini-Audited</span>
+          </div>
+          
+          <!-- Summary Banner -->
+          <div class="ats-summary-banner" style="display: flex; align-items: center; gap: 30px; margin-bottom: 24px; padding: 20px; border-radius: 12px; background: var(--bg-subtle);">
+            <div class="ats-gauge-container" style="position: relative; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: conic-gradient(var(--accent-emerald) var(--score-pct, 0%), rgba(255,255,255,0.08) var(--score-pct, 0%));">
+              <div class="ats-gauge-inner" style="width: 86px; height: 86px; border-radius: 50%; background: var(--bg-card-elevated); display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: 800; font-size: 1.5rem;">
+                <span id="ats-gauge-score">--</span>
+                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600; margin-top: -2px;">/100</span>
+              </div>
+            </div>
+            <div style="flex: 1;">
+              <h3 style="margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 700;">Resume Review Score</h3>
+              <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                <span id="ats-grade-badge" class="badge" style="font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; background: rgba(255,255,255,0.1); color: var(--text-secondary);">Unscanned</span>
+                <span id="ats-scan-status" class="status" style="font-size: 0.82rem;"></span>
+              </div>
+              <button id="btn-rescan-ats" class="btn-secondary btn-sm">Re-Scan Resume</button>
+            </div>
+          </div>
+          
+          <!-- Score breakdown -->
+          <div style="margin-bottom: 28px;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 16px;">Category Score Breakdown</h3>
+            
+            <div class="ats-breakdown-row" style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Impact Metrics & Quantifiable Achievements</span>
+                <span id="ats-breakdown-impact">0 / 25</span>
+              </div>
+              <div class="progress-bar-bg" style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+                <div id="ats-fill-impact" class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-emerald); transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+
+            <div class="ats-breakdown-row" style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Strong Action Verbs & Tone</span>
+                <span id="ats-breakdown-verbs">0 / 20</span>
+              </div>
+              <div class="progress-bar-bg" style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+                <div id="ats-fill-verbs" class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-emerald); transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+
+            <div class="ats-breakdown-row" style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Required Sections Completeness</span>
+                <span id="ats-breakdown-completeness">0 / 20</span>
+              </div>
+              <div class="progress-bar-bg" style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+                <div id="ats-fill-completeness" class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-emerald); transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+
+            <div class="ats-breakdown-row" style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Technical Depth & Framework Diversity</span>
+                <span id="ats-breakdown-depth">0 / 20</span>
+              </div>
+              <div class="progress-bar-bg" style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+                <div id="ats-fill-depth" class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-emerald); transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+
+            <div class="ats-breakdown-row" style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Parser Formatting & Clarity</span>
+                <span id="ats-breakdown-formatting">0 / 15</span>
+              </div>
+              <div class="progress-bar-bg" style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+                <div id="ats-fill-formatting" class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--accent-emerald); transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Insight section -->
+          <div class="ats-insight-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <div class="ats-insight-column" style="padding: 16px; border-radius: 10px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.1);">
+              <h4 style="margin: 0 0 12px 0; font-size: 0.95rem; font-weight: 700; color: var(--accent-emerald);">Key ATS Strengths</h4>
+              <ul id="ats-strengths-list" style="margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6;">
+                <li style="color: var(--text-muted);">No scan details found. Parse a resume to score.</li>
+              </ul>
+            </div>
+            <div class="ats-insight-column" style="padding: 16px; border-radius: 10px; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.1);">
+              <h4 style="margin: 0 0 12px 0; font-size: 0.95rem; font-weight: 700; color: var(--accent-amber);">Recommended Improvements</h4>
+              <ul id="ats-improvements-list" style="margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6;">
+                <li style="color: var(--text-muted);">No scan details found. Parse a resume to score.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Suggested keywords -->
+          <div>
+            <h4 style="margin: 0 0 10px 0; font-size: 0.9rem; font-weight: 700;">Suggested ATS Keywords to Add</h4>
+            <div id="ats-keywords-container" class="chip-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">No suggestions.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= FLOATING CAREER ASSISTANT CHATBOT ================= -->
+  <button id="chat-toggle-btn" class="chat-toggle-btn" style="position: fixed; bottom: 24px; right: 24px; z-index: 1001; display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 50px; background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); color: #ffffff; border: none; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span>Ask Gemini</span>
+  </button>
+
+  <div id="chat-window" class="chat-window hidden" style="position: fixed; bottom: 85px; right: 24px; z-index: 1000; width: 380px; height: 520px; border-radius: 18px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); background: var(--bg-card-elevated); backdrop-filter: blur(10px);">
+    <!-- Header -->
+    <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03);">
+      <div>
+        <h3 style="margin: 0; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+          <span style="color: #a855f7;">✦</span> Career Copilot
+        </h3>
+        <div style="display: flex; align-items: center; gap: 5px; margin-top: 2px;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+          <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">Active • Context Aware</span>
+        </div>
+      </div>
+      <button id="chat-close-btn" style="background: none; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+    </div>
+
+    <!-- Message list -->
+    <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.05);">
+      <div class="chat-bubble ai" style="align-self: flex-start; max-width: 85%; padding: 10px 14px; border-radius: 14px; border-top-left-radius: 4px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
+        Hi! I am your AI Career Copilot. Upload your resume or ask me any questions about resume optimization, interview prep, or career roadmaps.
+      </div>
+    </div>
+
+    <!-- Quick Prompt Chips -->
+    <div class="chat-chips-container" style="padding: 10px 14px; border-top: 1px solid var(--border-subtle); background: rgba(0,0,0,0.02); display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
+      <button class="quick-chip" data-query="How can I improve my match readiness for top roles?" style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Improve Score</button>
+      <button class="quick-chip" data-query="Give me 3 technical interview questions based on my projects." style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Interview Prep</button>
+      <button class="quick-chip" data-query="What skills should I learn next based on my gap analysis?" style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Skill Advice</button>
+    </div>
+
+    <!-- Input form -->
+    <form id="chat-form" style="display: flex; border-top: 1px solid var(--border-subtle); background: var(--bg-card-elevated);">
+      <input type="text" id="chat-input" placeholder="Ask about your career roadmap..." style="flex: 1; border: none; background: none; padding: 14px 16px; font-size: 0.85rem; color: var(--text-primary); outline: none;" required>
+      <button type="submit" id="chat-send-btn" style="border: none; background: none; color: #a855f7; padding: 0 18px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: opacity 0.2s ease;">Send</button>
+    </form>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

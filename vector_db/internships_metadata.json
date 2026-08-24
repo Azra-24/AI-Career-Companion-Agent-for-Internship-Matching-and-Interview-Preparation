@@ -1,0 +1,278 @@
+[
+  {
+    "id": "INT001",
+    "title": "AI/ML Intern",
+    "company": "TechNova",
+    "description": "Work on machine learning models, data preparation, model evaluation, and AI-powered applications.",
+    "required_skills": [
+      "Python",
+      "Machine Learning",
+      "NumPy",
+      "Pandas"
+    ],
+    "preferred_skills": [
+      "TensorFlow",
+      "Scikit-learn",
+      "Deep Learning"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science, AI, Data Science, or related field",
+    "experience_requirements": "Students or freshers with academic ML projects",
+    "location": "Hyderabad",
+    "work_mode": "Hybrid",
+    "duration": "6 months",
+    "other_requirements": "Strong problem-solving and analytical skills"
+  },
+  {
+    "id": "INT002",
+    "title": "Backend Development Intern",
+    "company": "CodeCraft",
+    "description": "Develop REST APIs and backend services, work with databases, testing, and server-side application logic.",
+    "required_skills": [
+      "Python",
+      "FastAPI",
+      "REST APIs",
+      "SQL"
+    ],
+    "preferred_skills": [
+      "PostgreSQL",
+      "Docker",
+      "Git"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science or related field",
+    "experience_requirements": "0-1 years or strong backend projects",
+    "location": "Bengaluru",
+    "work_mode": "On-site",
+    "duration": "4 months",
+    "other_requirements": "Knowledge of software development practices"
+  },
+  {
+    "id": "INT003",
+    "title": "Data Science Intern",
+    "company": "DataSphere",
+    "description": "Analyze datasets, build predictive models, create data visualizations, and communicate analytical findings.",
+    "required_skills": [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "SQL",
+      "Statistics"
+    ],
+    "preferred_skills": [
+      "Scikit-learn",
+      "Matplotlib",
+      "Power BI"
+    ],
+    "education_requirements": "Computer Science, Data Science, Statistics, Mathematics, or related degree",
+    "experience_requirements": "Students with data analysis or ML projects",
+    "location": "Pune",
+    "work_mode": "Hybrid",
+    "duration": "5 months",
+    "other_requirements": "Analytical thinking"
+  },
+  {
+    "id": "INT004",
+    "title": "Generative AI Intern",
+    "company": "GenWorks",
+    "description": "Build LLM-powered applications, retrieval-augmented generation workflows, prompt pipelines, and AI assistants.",
+    "required_skills": [
+      "Python",
+      "Generative AI",
+      "LLMs",
+      "Prompt Engineering"
+    ],
+    "preferred_skills": [
+      "RAG",
+      "LangChain",
+      "Vector Databases",
+      "Gemini API"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science, AI, or related field",
+    "experience_requirements": "Academic or personal AI projects preferred",
+    "location": "Remote",
+    "work_mode": "Remote",
+    "duration": "6 months",
+    "other_requirements": "Interest in applied AI systems"
+  },
+  {
+    "id": "INT005",
+    "title": "Frontend Development Intern",
+    "company": "PixelLabs",
+    "description": "Create responsive web interfaces and reusable components for customer-facing applications.",
+    "required_skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React"
+    ],
+    "preferred_skills": [
+      "TypeScript",
+      "Git",
+      "REST APIs"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science or related field",
+    "experience_requirements": "Students with web development projects",
+    "location": "Chennai",
+    "work_mode": "Hybrid",
+    "duration": "4 months",
+    "other_requirements": "Good UI problem-solving skills"
+  },
+  {
+    "id": "INT006",
+    "title": "Java Backend Intern",
+    "company": "EnterpriseSoft",
+    "description": "Develop enterprise backend services using Java and Spring Boot with relational databases and REST APIs.",
+    "required_skills": [
+      "Java",
+      "Spring Boot",
+      "REST APIs",
+      "SQL"
+    ],
+    "preferred_skills": [
+      "PostgreSQL",
+      "Docker",
+      "Git"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science or related field",
+    "experience_requirements": "0-1 years or academic backend projects",
+    "location": "Bengaluru",
+    "work_mode": "On-site",
+    "duration": "6 months",
+    "other_requirements": "Object-oriented programming fundamentals"
+  },
+  {
+    "id": "INT007",
+    "title": "Cloud and DevOps Intern",
+    "company": "CloudGrid",
+    "description": "Support cloud deployments, CI/CD automation, containerized services, and infrastructure monitoring.",
+    "required_skills": [
+      "AWS",
+      "Docker",
+      "Linux",
+      "CI/CD"
+    ],
+    "preferred_skills": [
+      "Kubernetes",
+      "GitHub Actions",
+      "Terraform"
+    ],
+    "education_requirements": "Computer Science, Information Technology, or related degree",
+    "experience_requirements": "Students with cloud or DevOps projects",
+    "location": "Hyderabad",
+    "work_mode": "Hybrid",
+    "duration": "6 months",
+    "other_requirements": "Basic networking knowledge"
+  },
+  {
+    "id": "INT008",
+    "title": "NLP Research Intern",
+    "company": "LanguageAI",
+    "description": "Experiment with natural language processing models, text classification, embeddings, and transformer-based systems.",
+    "required_skills": [
+      "Python",
+      "NLP",
+      "Machine Learning"
+    ],
+    "preferred_skills": [
+      "Transformers",
+      "PyTorch",
+      "Hugging Face"
+    ],
+    "education_requirements": "Computer Science, AI, Data Science, or related field",
+    "experience_requirements": "ML/NLP coursework or projects",
+    "location": "Remote",
+    "work_mode": "Remote",
+    "duration": "5 months",
+    "other_requirements": "Research-oriented mindset"
+  },
+  {
+    "id": "INT009",
+    "title": "Cybersecurity Intern",
+    "company": "SecureNet",
+    "description": "Assist with security monitoring, vulnerability analysis, secure coding reviews, and incident investigation.",
+    "required_skills": [
+      "Cybersecurity",
+      "Linux",
+      "Networking"
+    ],
+    "preferred_skills": [
+      "Python",
+      "OWASP",
+      "SIEM"
+    ],
+    "education_requirements": "Cybersecurity, Computer Science, or Information Technology degree",
+    "experience_requirements": "Security labs, coursework, or projects",
+    "location": "Mumbai",
+    "work_mode": "On-site",
+    "duration": "4 months",
+    "other_requirements": "Understanding of security fundamentals"
+  },
+  {
+    "id": "INT010",
+    "title": "Data Engineering Intern",
+    "company": "PipelineWorks",
+    "description": "Build data pipelines, process large datasets, and support ETL workflows and analytics platforms.",
+    "required_skills": [
+      "Python",
+      "SQL",
+      "ETL",
+      "Data Processing"
+    ],
+    "preferred_skills": [
+      "Apache Spark",
+      "Airflow",
+      "AWS"
+    ],
+    "education_requirements": "Computer Science, Data Engineering, or related field",
+    "experience_requirements": "Students with data projects",
+    "location": "Pune",
+    "work_mode": "Hybrid",
+    "duration": "6 months",
+    "other_requirements": "Strong SQL fundamentals"
+  },
+  {
+    "id": "INT011",
+    "title": "Full Stack Development Intern",
+    "company": "WebForge",
+    "description": "Develop end-to-end web applications across frontend interfaces, APIs, authentication, and databases.",
+    "required_skills": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "SQL"
+    ],
+    "preferred_skills": [
+      "TypeScript",
+      "MongoDB",
+      "Git"
+    ],
+    "education_requirements": "B.Tech/B.E. in Computer Science or related field",
+    "experience_requirements": "Web application projects preferred",
+    "location": "Hyderabad",
+    "work_mode": "Hybrid",
+    "duration": "6 months",
+    "other_requirements": "Understanding of web application architecture"
+  },
+  {
+    "id": "INT012",
+    "title": "Python Software Engineering Intern",
+    "company": "SoftLogic",
+    "description": "Implement Python services, write tests, debug applications, and collaborate on software engineering tasks.",
+    "required_skills": [
+      "Python",
+      "Git",
+      "Testing",
+      "Object-Oriented Programming"
+    ],
+    "preferred_skills": [
+      "FastAPI",
+      "Docker",
+      "SQL"
+    ],
+    "education_requirements": "Computer Science or related degree",
+    "experience_requirements": "Students or freshers with software projects",
+    "location": "Chennai",
+    "work_mode": "Hybrid",
+    "duration": "5 months",
+    "other_requirements": "Strong programming fundamentals"
+  }
+]

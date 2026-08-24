@@ -1,0 +1,360 @@
+[
+  {
+    "id": "APP-101",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-102",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "AI/ML Intern",
+    "company": "TechNova",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 75.0,
+    "matched_skills": [
+      "Python",
+      "NumPy",
+      "Pandas"
+    ],
+    "missing_skills": [
+      "Machine Learning"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Machine Learning to close the gap."
+    ]
+  },
+  {
+    "id": "APP-103",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Generative AI Intern",
+    "company": "GenWorks",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 25.0,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Generative AI",
+      "LLMs",
+      "Prompt Engineering"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Generative AI to close the gap.",
+      "Complete a tutorial/project focusing on LLMs to close the gap.",
+      "Complete a tutorial/project focusing on Prompt Engineering to close the gap."
+    ]
+  },
+  {
+    "id": "APP-104",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Data Science Intern",
+    "company": "DataSphere",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 100.0,
+    "matched_skills": [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "SQL",
+      "Statistics"
+    ],
+    "missing_skills": [],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "All required skills met! Review core concepts and practice behaviour questions."
+    ]
+  },
+  {
+    "id": "APP-105",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Data Science Intern",
+    "company": "DataSphere",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 100.0,
+    "matched_skills": [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "SQL",
+      "Statistics"
+    ],
+    "missing_skills": [],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "All required skills met! Review core concepts and practice behaviour questions."
+    ]
+  },
+  {
+    "id": "APP-106",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Full Stack Development Intern",
+    "company": "WebForge",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 25.0,
+    "matched_skills": [
+      "SQL"
+    ],
+    "missing_skills": [
+      "JavaScript",
+      "React",
+      "Node.js"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on JavaScript to close the gap.",
+      "Complete a tutorial/project focusing on React to close the gap.",
+      "Complete a tutorial/project focusing on Node.js to close the gap."
+    ]
+  },
+  {
+    "id": "APP-107",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Cloud and DevOps Intern",
+    "company": "CloudGrid",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 0.0,
+    "matched_skills": [],
+    "missing_skills": [
+      "AWS",
+      "Docker",
+      "Linux",
+      "CI/CD"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on AWS to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap.",
+      "Complete a tutorial/project focusing on Linux to close the gap.",
+      "Complete a tutorial/project focusing on CI/CD to close the gap."
+    ]
+  },
+  {
+    "id": "APP-108",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "AI/ML Intern",
+    "company": "TechNova",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-24",
+    "status": "Screening",
+    "readiness_score": 75.0,
+    "matched_skills": [
+      "Python",
+      "NumPy",
+      "Pandas"
+    ],
+    "missing_skills": [
+      "Machine Learning"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Machine Learning to close the gap."
+    ]
+  }
+]
