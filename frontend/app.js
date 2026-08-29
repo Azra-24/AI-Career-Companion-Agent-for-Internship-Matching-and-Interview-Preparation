@@ -107,6 +107,14 @@ document.getElementById('btn-logout').addEventListener('click', () => {
   localStorage.removeItem('candidateProfile');
   localStorage.removeItem('userApplications');
   localStorage.removeItem('cachedAtsScore');
+  const chatMessagesEl = document.getElementById('chat-messages');
+  if (chatMessagesEl) {
+    chatMessagesEl.innerHTML = `
+      <div class="chat-bubble ai" style="align-self: flex-start; max-width: 85%; padding: 10px 14px; border-radius: 14px; border-top-left-radius: 4px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
+        Hello! How can I help you with Internship Assistant today? You can ask about creating an account, uploading your resume, matching internships, skill-gap analysis, generating cover letters, or tracking applications. If you have any other questions, feel free to let me know.
+      </div>
+    `;
+  }
   dashboardView.classList.add('hidden');
   landingPage.classList.remove('hidden');
 });

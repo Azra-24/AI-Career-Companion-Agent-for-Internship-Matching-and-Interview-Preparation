@@ -356,5 +356,137 @@
     "learning_recommendations": [
       "Complete a tutorial/project focusing on Machine Learning to close the gap."
     ]
+  },
+  {
+    "id": "APP-109",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "AI/ML Intern",
+    "company": "TechNova",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-25",
+    "status": "Screening",
+    "readiness_score": 75.0,
+    "matched_skills": [
+      "Python",
+      "NumPy",
+      "Pandas"
+    ],
+    "missing_skills": [
+      "Machine Learning"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Machine Learning to close the gap."
+    ]
+  },
+  {
+    "id": "APP-110",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "AI/ML Intern",
+    "company": "TechNova",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-25",
+    "status": "Screening",
+    "readiness_score": 75.0,
+    "matched_skills": [
+      "Python",
+      "NumPy",
+      "Pandas"
+    ],
+    "missing_skills": [
+      "Machine Learning"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Machine Learning to close the gap."
+    ]
+  },
+  {
+    "id": "APP-111",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-08-29",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
   }
 ]

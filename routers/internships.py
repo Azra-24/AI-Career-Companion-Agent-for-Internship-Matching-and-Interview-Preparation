@@ -519,26 +519,24 @@ class ChatRequest(BaseModel):
     internships_context: Optional[List[Dict[str, Any]]] = None
 
 
-def build_chat_prompt(message: str, candidate: Optional[dict] = None, internships: Optional[list] = None) -> str:
-    import json
-    candidate_str = json.dumps(candidate, indent=2) if candidate else "None provided"
-    internships_str = json.dumps(internships, indent=2) if internships else "None provided"
+def build_chat_prompt(message: str, retrieved_chunks: List[str]) -> str:
+    chunks_str = "\n\n".join([f"--- Policy Segment ---\n{c}" for c in retrieved_chunks])
     
     prompt = f"""
-You are an expert Technical Career Coach and AI Recruiter.
-Help the candidate with their career query, keeping your answers concise, actionable, and formatted with clean bullet points.
-Use the candidate's actual projects, skills, and matched internships as context.
+You are the dedicated Product Support & Policy Assistant for the "Internship Assistant" platform.
+Your sole role is to answer questions regarding the Internship Assistant platform, its features (resume upload, matching, ATS scoring, skill gap, cover letters, application pipeline), and its operational policies (data retention, security, acceptable use) using the retrieved policy context below.
 
-CANDIDATE PROFILE:
-{candidate_str}
+RETRIEVED POLICY CONTEXT:
+{chunks_str}
 
-MATCHED INTERNSHIPS CONTEXT:
-{internships_str}
+STRICT GUARDRAIL RULES:
+1. If the user asks ANY question unrelated to the Internship Assistant product, its features, or its documented policies (such as sports, celebrities, general trivia, unrelated coding/math tasks, politics, etc.), you MUST NOT answer the question. You MUST reply STRICTLY and VERBATIM with:
+"I'm sorry, but I can only help with questions about the Internship Assistant product. For other inquiries, please contact product support."
+
+2. Keep your answers concise, actionable, and formatted with clean bullet points.
 
 USER QUERY:
 {message}
-
-Answer the candidate directly. Do not use generic introductions or formatting headers like "Answer:". Focus on role-specific interview preparation, resume tailoring advice, and career roadmaps as requested.
 """
     return prompt.strip()
 
@@ -546,18 +544,54 @@ Answer the candidate directly. Do not use generic introductions or formatting he
 @router.post("/chat-assistant", response_model=Dict[str, Any])
 def chat_assistant(request: ChatRequest) -> Dict[str, Any]:
     try:
+        from resume_parser.services.policy_rag import retrieve_relevant_chunks
+        
+        # Retrieve relevant chunks from FAISS policy index
+        chunks = retrieve_relevant_chunks(request.message, k=3)
+        
         client = _get_gemini_client()
-        prompt = build_chat_prompt(request.message, request.candidate, request.internships_context)
+        prompt = build_chat_prompt(request.message, chunks)
+        
+        system_instruction = (
+            "You are the dedicated Product Support & Policy Assistant for the 'Internship Assistant' platform.\n"
+            "Your sole role is to answer questions regarding the Internship Assistant platform, its features (resume upload, matching, ATS scoring, skill gap, cover letters, application pipeline), and its operational policies (data retention, security, acceptable use) based on the retrieved policy context.\n"
+            "If the user asks ANY question unrelated to the Internship Assistant product or its documented policies (such as sports, celebrities, general trivia, unrelated coding/math tasks, politics, etc.), you MUST NOT answer the question. You MUST reply STRICTLY and VERBATIM with:\n"
+            "I'm sorry, but I can only help with questions about the Internship Assistant product. For other inquiries, please contact product support."
+        )
         
         response = client.models.generate_content(
             model="gemini-3.6-flash",
             contents=prompt,
             config=types.GenerateContentConfig(
-                temperature=0.7,
+                temperature=0.1,  # Low temperature for strict policy compliance
+                system_instruction=system_instruction,
             )
         )
         
-        reply = getattr(response, "text", "") or "I'm sorry, I could not generate a response. Please try again."
+        reply = getattr(response, "text", "") or ""
+        reply = reply.strip()
+        
+        # Clean any surrounding quotes if returned by Gemini
+        if reply.startswith('"') and reply.endswith('"'):
+            reply = reply[1:-1].strip()
+        if reply.startswith("'") and reply.endswith("'"):
+            reply = reply[1:-1].strip()
+            
+        # Post-processing verification to enforce verbatim refusal for out-of-scope/unrelated queries.
+        lower_query = request.message.lower()
+        
+        out_of_scope_keywords = [
+            "sports", "football", "soccer", "cricket", "basketball", "ronaldo", "messi", "celebrity", "celebrities",
+            "actor", "actress", "politics", "president", "trivia", "joke", "weather", "recipe", "capital of",
+            "coding tutorial", "unrelated", "write a code", "write code", "sort a list", "solve this", "math problem"
+        ]
+        
+        is_out_of_scope = any(kw in lower_query for kw in out_of_scope_keywords)
+        is_refusal_response = "contact product support" in reply.lower() or "sorry" in reply.lower() or "can only help with" in reply.lower()
+        
+        if is_out_of_scope or is_refusal_response:
+            reply = "I'm sorry, but I can only help with questions about the Internship Assistant product. For other inquiries, please contact product support."
+            
         return {"reply": reply}
     except Exception as exc:
         logger.exception("Chat assistant failed: %s", exc)
