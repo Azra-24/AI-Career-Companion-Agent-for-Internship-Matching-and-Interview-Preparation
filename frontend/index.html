@@ -137,6 +137,14 @@
           </svg>
           <span>ATS Resume Score</span>
         </button>
+        <button class="nav-item" data-tab="tab-interviewprep">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            <path d="M12 7v5"/>
+            <path d="M12 15h.01"/>
+          </svg>
+          <span>Interview Prep Agent</span>
+        </button>
       </nav>
 
       <div class="sidebar-footer">
@@ -419,6 +427,129 @@
           </div>
         </div>
       </section>
+
+      <!-- TAB 7: INTERVIEW PREPARATION & DOC Q&A AGENT -->
+      <section id="tab-interviewprep" class="tab-pane">
+        <div class="card">
+          <div class="card-header-actions" style="margin-bottom: 20px;">
+            <div>
+              <h2>AI Interview Preparation & Document Q&A Agent</h2>
+              <p style="color: var(--text-secondary); font-size: 0.88rem; margin-top: 4px;">Role-specific mock interview questions, resume-aligned coaching, and document-grounded analysis.</p>
+            </div>
+          </div>
+
+          <!-- Top Control & Upload Row -->
+          <div class="prep-control-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <!-- Profile & Target Role Card -->
+            <div class="prep-config-card" style="padding: 16px 18px; border-radius: 12px; background: var(--bg-subtle); border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Candidate Profile Sync</span>
+                <span id="prep-profile-badge" class="badge" style="font-size: 0.75rem; padding: 2px 8px; background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald);">Synced</span>
+              </div>
+              <p id="prep-profile-info" style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">
+                No resume parsed yet. Parse a resume or ask general questions.
+              </p>
+              <div class="form-group" style="margin-top: auto;">
+                <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Target Role (Optional)</label>
+                <input type="text" id="prep-target-role" class="input-field" placeholder="e.g. AI/ML Intern, Full Stack Developer" style="padding: 8px 12px; font-size: 0.85rem;">
+              </div>
+            </div>
+
+            <!-- Document Upload Card -->
+            <div class="prep-config-card" style="padding: 16px 18px; border-radius: 12px; background: var(--bg-subtle); border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Document-Based Q&A Context</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">PDF, DOCX, TXT</span>
+              </div>
+              <div id="prep-dropzone" class="dropzone" style="padding: 14px; min-height: unset; cursor: pointer; border-style: dashed; border-width: 1.5px;">
+                <span class="dropzone-text" id="prep-dropzone-text" style="font-size: 0.82rem;">Upload prep notes, syllabus, or job description</span>
+                <input id="prep-doc-file" type="file" accept=".pdf,.docx,.doc,.txt" class="file-input">
+              </div>
+              <!-- Loaded Doc Pill -->
+              <div id="prep-doc-pill-container" class="hidden" style="display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-radius: 8px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);">
+                <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                  <span style="font-size: 1rem;">📄</span>
+                  <span id="prep-doc-name" style="font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">notes.pdf</span>
+                  <span id="prep-doc-stats" style="font-size: 0.72rem; color: var(--text-muted);">(0 chars)</span>
+                </div>
+                <button id="btn-clear-prep-doc" style="background: none; border: none; color: var(--text-secondary); font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 0 4px;" title="Remove document">&times;</button>
+              </div>
+              <p id="prep-upload-status" class="status" style="margin: 0; font-size: 0.78rem;"></p>
+            </div>
+          </div>
+
+          <!-- Quick Action Prompts -->
+          <div style="margin-bottom: 16px;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 8px;">Quick Action Prompts</span>
+            <div class="prep-quick-chips" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <button class="prep-chip-btn" data-prompt="Which role can I apply for based on my resume?">🎯 Which role can I apply for based on my resume?</button>
+              <button class="prep-chip-btn" data-prompt="Generate technical and HR interview questions for my profile.">💡 Generate technical and HR interview questions for my profile.</button>
+              <button class="prep-chip-btn" data-prompt="Provide a 7-day interview preparation roadmap.">📅 Provide a 7-day interview preparation roadmap.</button>
+            </div>
+          </div>
+
+          <!-- Tab Chat Interface -->
+          <div class="prep-chat-wrapper" style="border-radius: 14px; border: 1px solid var(--border-subtle); background: var(--bg-card-elevated); overflow: hidden; display: flex; flex-direction: column; height: 530px;">
+            <!-- Header bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-subtle);">
+              <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0;"></span>
+                <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); white-space: nowrap;">Interview Coach Active</span>
+                <span id="prep-active-session-title" style="font-size: 0.78rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px;">• New Conversation</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="btn-toggle-prep-history" class="btn-secondary" style="padding: 5px 12px; font-size: 0.78rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>History</span>
+                  <span id="prep-history-count" style="background: rgba(99, 102, 241, 0.25); color: #818cf8; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 999px;">0</span>
+                </button>
+                <button id="btn-new-prep-chat" class="btn-primary" style="padding: 5px 12px; font-size: 0.78rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                  <span style="font-size: 1rem; font-weight: 700; line-height: 1;">+</span>
+                  <span>New Chat</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Chat & History Drawer Body Container -->
+            <div style="display: flex; flex: 1; overflow: hidden; position: relative;">
+              <!-- Main Chat Pane -->
+              <div style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+                <!-- Messages Area -->
+                <div id="prep-chat-messages" style="flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px;">
+                  <div id="prep-chat-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto; padding: 30px; max-width: 400px;">
+                    <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 1.5rem; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);">🎓</div>
+                    <h4 style="margin: 0 0 6px 0; font-size: 1.05rem; font-weight: 700;">Interview Preparation Assistant</h4>
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Click a quick prompt above or ask role-specific technical and behavioral questions tailored to your profile.</p>
+                  </div>
+                </div>
+
+                <!-- Chat Input Row -->
+                <form id="prep-chat-form" style="display: flex; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-subtle); background: var(--bg-subtle); align-items: center;">
+                  <input type="text" id="prep-chat-input" class="input-field" placeholder="Ask interview prep questions, request mock problems, or ask about your document..." style="flex: 1; font-size: 0.88rem;" required>
+                  <button type="submit" id="btn-send-prep-chat" class="btn-primary" style="padding: 10px 18px; display: flex; align-items: center; gap: 6px;">
+                    <span>Send</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+                </form>
+              </div>
+
+              <!-- History Drawer (Collapsible) -->
+              <aside id="prep-history-drawer" class="prep-history-drawer hidden" style="width: 280px; border-left: 1px solid var(--border-subtle); background: var(--bg-card); display: flex; flex-direction: column; overflow: hidden; transition: all 0.2s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border-subtle);">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span style="font-size: 0.85rem; font-weight: 700;">Past Conversations</span>
+                  </div>
+                  <button id="btn-close-prep-history" style="background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; line-height: 1; padding: 0 4px;" title="Close History">&times;</button>
+                </div>
+                <div id="prep-sessions-list" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px;">
+                  <!-- Rendered dynamically -->
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -429,9 +560,9 @@
     </svg>
   </button>
 
-  <div id="chat-window" class="chat-window hidden" style="position: fixed; bottom: 85px; right: 24px; z-index: 1000; width: 380px; height: 520px; border-radius: 18px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); background: var(--bg-card-elevated); backdrop-filter: blur(10px);">
+  <div id="chat-window" class="chat-window hidden" style="position: fixed; bottom: 85px; right: 24px; z-index: 1000; width: 380px; height: 520px; border-radius: 18px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%); backdrop-filter: blur(20px);">
     <!-- Header -->
-    <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03);">
+    <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255,255,255,0.02);">
       <div>
         <h3 style="margin: 0; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 6px;">
           <span style="color: #a855f7;">✦</span> Career Copilot
@@ -441,27 +572,28 @@
           <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">Active • Context Aware</span>
         </div>
       </div>
-      <button id="chat-close-btn" style="background: none; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button id="chat-reset-btn" title="Reset Chat" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 4px 10px; border-radius: 20px; transition: all 0.2s ease;">Reset</button>
+        <button id="chat-close-btn" style="background: none; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+      </div>
     </div>
 
     <!-- Message list -->
     <div id="chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.05);">
-      <div class="chat-bubble ai" style="align-self: flex-start; max-width: 85%; padding: 10px 14px; border-radius: 14px; border-top-left-radius: 4px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
-        Hello! How can I help you with Internship Assistant today? You can ask about creating an account, uploading your resume, matching internships, skill-gap analysis, generating cover letters, or tracking applications. If you have any other questions, feel free to let me know.
+      <!-- Empty State Hero -->
+      <div id="chat-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto; padding: 20px; max-width: 300px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4); font-size: 1.5rem;">✨</div>
+        <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 600; color: #F3F4F6;">How can I help you today?</h4>
+        <p style="margin: 0; font-size: 0.85rem; color: #9CA3AF; line-height: 1.4;">Ask about resume matching, ATS scoring, skill gaps, or platform policies.</p>
       </div>
     </div>
 
-    <!-- Quick Prompt Chips -->
-    <div class="chat-chips-container" style="padding: 10px 14px; border-top: 1px solid var(--border-subtle); background: rgba(0,0,0,0.02); display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
-      <button class="quick-chip" data-query="How can I improve my match readiness for top roles?" style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Improve Score</button>
-      <button class="quick-chip" data-query="Give me 3 technical interview questions based on my projects." style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Interview Prep</button>
-      <button class="quick-chip" data-query="What skills should I learn next based on my gap analysis?" style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">Skill Advice</button>
-    </div>
-
     <!-- Input form -->
-    <form id="chat-form" style="display: flex; border-top: 1px solid var(--border-subtle); background: var(--bg-card-elevated);">
-      <input type="text" id="chat-input" placeholder="Ask about your career roadmap..." style="flex: 1; border: none; background: none; padding: 14px 16px; font-size: 0.85rem; color: var(--text-primary); outline: none;" required>
-      <button type="submit" id="chat-send-btn" style="border: none; background: none; color: #a855f7; padding: 0 18px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: opacity 0.2s ease;">Send</button>
+    <form id="chat-form" style="display: flex; align-items: center; margin: 12px; padding: 4px 8px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.2s ease, box-shadow 0.2s ease;">
+      <input type="text" id="chat-input" placeholder="Ask about your career roadmap..." style="flex: 1; border: none; background: none; padding: 10px 12px; font-size: 0.85rem; color: var(--text-primary); outline: none;" required>
+      <button type="submit" id="chat-send-btn" style="border: none; background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); color: #ffffff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: translate(-1px, 1px);"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
     </form>
   </div>
 

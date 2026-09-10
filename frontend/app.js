@@ -2,6 +2,9 @@
 let currentUser = null;
 let currentCandidate = null;
 let currentMatches = [];
+window.chatMemory = [];
+const SESSIONS_STORAGE_KEY = 'interview_prep_chat_sessions';
+const ACTIVE_SESSION_STORAGE_KEY = 'interview_prep_active_session_id';
 
 // DOM Elements
 const landingPage = document.getElementById('landing-page');
@@ -102,19 +105,27 @@ authForm.addEventListener('submit', (e) => {
 document.getElementById('btn-logout').addEventListener('click', () => {
   currentUser = null;
   currentCandidate = null;
+  window.chatMemory = [];
+  activePrepSessionId = null;
+  currentPrepDoc = null;
   localStorage.removeItem('currentUser');
   localStorage.removeItem('authToken');
   localStorage.removeItem('candidateProfile');
   localStorage.removeItem('userApplications');
   localStorage.removeItem('cachedAtsScore');
+  localStorage.removeItem(SESSIONS_STORAGE_KEY);
+  localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY);
   const chatMessagesEl = document.getElementById('chat-messages');
   if (chatMessagesEl) {
     chatMessagesEl.innerHTML = `
-      <div class="chat-bubble ai" style="align-self: flex-start; max-width: 85%; padding: 10px 14px; border-radius: 14px; border-top-left-radius: 4px; border: 1px solid var(--border-subtle); background: var(--bg-subtle); font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
-        Hello! How can I help you with Internship Assistant today? You can ask about creating an account, uploading your resume, matching internships, skill-gap analysis, generating cover letters, or tracking applications. If you have any other questions, feel free to let me know.
+      <div id="chat-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto; padding: 20px; max-width: 300px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4); font-size: 1.5rem;">✨</div>
+        <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 600; color: #F3F4F6;">How can I help you today?</h4>
+        <p style="margin: 0; font-size: 0.85rem; color: #9CA3AF; line-height: 1.4;">Ask about resume matching, ATS scoring, skill gaps, or platform policies.</p>
       </div>
     `;
   }
+  syncCandidateToPrepTab();
   dashboardView.classList.add('hidden');
   landingPage.classList.remove('hidden');
 });
@@ -212,6 +223,7 @@ function populateProfileForm(cand) {
 
   if (cand.full_name) document.getElementById('top-user-name').textContent = cand.full_name;
   if (cand.email) document.getElementById('top-user-email').textContent = cand.email;
+  syncCandidateToPrepTab();
 }
 
 document.getElementById('profile-form').addEventListener('submit', (e) => {
@@ -233,6 +245,7 @@ document.getElementById('profile-form').addEventListener('submit', (e) => {
 
   document.getElementById('prof-skills-chips').innerHTML = skillsArray.map(s => `<span class="chip">${s}</span>`).join('');
   pStatus.textContent = 'Profile successfully updated!';
+  syncCandidateToPrepTab();
 });
 
 // Render Match Cards
@@ -683,6 +696,7 @@ document.addEventListener('DOMContentLoaded', initSession);
 const chatToggleBtn = document.getElementById('chat-toggle-btn');
 const chatWindow = document.getElementById('chat-window');
 const chatCloseBtn = document.getElementById('chat-close-btn');
+const chatResetBtn = document.getElementById('chat-reset-btn');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-messages');
@@ -700,7 +714,71 @@ if (chatCloseBtn && chatWindow) {
   });
 }
 
+if (chatResetBtn) {
+  chatResetBtn.addEventListener('click', () => {
+    window.chatMemory = [];
+    if (chatMessages) {
+      chatMessages.innerHTML = `
+        <div id="chat-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto; padding: 20px; max-width: 300px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4); font-size: 1.5rem;">✨</div>
+          <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 600; color: #F3F4F6;">How can I help you today?</h4>
+          <p style="margin: 0; font-size: 0.85rem; color: #9CA3AF; line-height: 1.4;">Ask about resume matching, ATS scoring, skill gaps, or platform policies.</p>
+        </div>
+      `;
+    }
+  });
+}
+
+function escapePrepHTML(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function cleanMarkdownText(text) {
+  if (!text) return '';
+  let formatted = text;
+
+  // 1. Code blocks (```code```)
+  formatted = formatted.replace(/```(?:[a-zA-Z0-9_-]*\n)?([\s\S]*?)```/g, (match, code) => {
+    return `<pre style="background: rgba(0, 0, 0, 0.4); padding: 12px 14px; border-radius: 8px; margin: 10px 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; border: 1px solid rgba(255, 255, 255, 0.1); color: #f8fafc;"><code>${escapePrepHTML(code.trim())}</code></pre>`;
+  });
+
+  // 2. Inline code (`code`)
+  formatted = formatted.replace(/`([^`]+)`/g, (match, code) => {
+    return `<code style="background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; border: 1px solid rgba(255, 255, 255, 0.08); color: #38bdf8;">${escapePrepHTML(code)}</code>`;
+  });
+
+  // 3. Headings (### Header or ## Header)
+  formatted = formatted.replace(/^#{1,4}\s*(.*)$/gm, '<strong style="display: block; margin-top: 10px; margin-bottom: 4px; font-size: 0.95rem; color: #f8fafc;">$1</strong>');
+
+  // 4. Bold **text** -> <strong>text</strong>
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // 5. Bullet items (* item or - item)
+  formatted = formatted.replace(/^\s*[\*\-]\s+(.*)$/gm, '&bull; $1');
+
+  // 6. Remaining single asterisks *text* -> <strong>text</strong>
+  formatted = formatted.replace(/\*([^\*\n]+)\*/g, '<strong>$1</strong>');
+
+  // 7. Bullet characters
+  formatted = formatted.replace(/•/g, '&bull;');
+
+  // 8. Convert newlines to <br>
+  formatted = formatted.replace(/\n/g, '<br>');
+
+  return formatted;
+}
+
+function formatBotMessage(text) {
+  return cleanMarkdownText(text);
+}
+
 function appendChatMessage(sender, text) {
+  const emptyState = document.getElementById('chat-empty-state');
+  if (emptyState) {
+    emptyState.remove();
+  }
+
   const bubble = document.createElement('div');
   
   if (sender === 'user') {
@@ -714,6 +792,7 @@ function appendChatMessage(sender, text) {
     bubble.style.color = '#ffffff';
     bubble.style.fontSize = '0.85rem';
     bubble.style.lineHeight = '1.5';
+    bubble.textContent = text;
   } else {
     bubble.className = 'chat-bubble ai';
     bubble.style.alignSelf = 'flex-start';
@@ -726,13 +805,9 @@ function appendChatMessage(sender, text) {
     bubble.style.fontSize = '0.85rem';
     bubble.style.lineHeight = '1.5';
     bubble.style.color = 'var(--text-secondary)';
+    bubble.innerHTML = formatBotMessage(text);
   }
   
-  const formattedText = text
-    .replace(/\n/g, '<br>')
-    .replace(/\*\s(.*?)(\<br\>|$)/g, '<li style="margin-left: 10px; margin-bottom: 2px;">$1</li>');
-    
-  bubble.innerHTML = formattedText;
   chatMessages.appendChild(bubble);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   return bubble;
@@ -750,33 +825,495 @@ if (chatForm) {
     const thinkingBubble = appendChatMessage('ai', 'Thinking...');
 
     try {
+      console.log("Sending chat history:", window.chatMemory);
       const res = await fetch('/internships/chat-assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: message,
-          candidate: currentCandidate,
-          internships_context: currentMatches
+          history: window.chatMemory
         })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || 'Chat assistant error');
 
-      thinkingBubble.innerHTML = data.reply.replace(/\n/g, '<br>').replace(/\*\s(.*?)(\<br\>|$)/g, '<li style="margin-left: 10px; margin-bottom: 2px;">$1</li>');
+      const botReply = data.response || data.reply || '';
+      thinkingBubble.innerHTML = formatBotMessage(botReply);
+      
+      // Save turns to conversation history
+      window.chatMemory.push({ role: 'user', content: message });
+      window.chatMemory.push({ role: 'model', content: botReply });
+      console.log("Updated chat history:", window.chatMemory);
     } catch (err) {
       thinkingBubble.textContent = `Error: ${err.message}`;
     }
   });
 }
 
-document.querySelectorAll('.quick-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    const query = chip.getAttribute('data-query');
-    if (query && chatInput) {
-      chatInput.value = query;
-      chatForm.dispatchEvent(new Event('submit'));
+// ================= INTERVIEW PREP AGENT (MULTI-SESSION) =================
+let activePrepSessionId = null;
+let currentPrepDoc = null;
+
+function syncCandidateToPrepTab() {
+  const badge = document.getElementById('prep-profile-badge');
+  const info = document.getElementById('prep-profile-info');
+  if (!badge || !info) return;
+
+  if (currentCandidate && (currentCandidate.full_name || (currentCandidate.skills && currentCandidate.skills.length > 0))) {
+    const name = currentCandidate.full_name || currentCandidate.name || 'Candidate';
+    const skillCount = (currentCandidate.skills || []).length;
+    const projectCount = (currentCandidate.projects || []).length;
+    info.textContent = `${name} • ${skillCount} skills synced • ${projectCount} projects`;
+    badge.textContent = 'Synced';
+    badge.style.background = 'rgba(16, 185, 129, 0.1)';
+    badge.style.color = 'var(--accent-emerald)';
+  } else {
+    info.textContent = 'No resume parsed yet. Parse a resume in Find Internships or ask general questions.';
+    badge.textContent = 'Not Synced';
+    badge.style.background = 'rgba(255, 255, 255, 0.08)';
+    badge.style.color = 'var(--text-muted)';
+  }
+}
+
+const prepDocFileInput = document.getElementById('prep-doc-file');
+const prepDropzone = document.getElementById('prep-dropzone');
+const prepDocPillContainer = document.getElementById('prep-doc-pill-container');
+const prepDocName = document.getElementById('prep-doc-name');
+const prepDocStats = document.getElementById('prep-doc-stats');
+const btnClearPrepDoc = document.getElementById('btn-clear-prep-doc');
+const prepUploadStatus = document.getElementById('prep-upload-status');
+
+const prepChatMessages = document.getElementById('prep-chat-messages');
+const prepChatForm = document.getElementById('prep-chat-form');
+const prepChatInput = document.getElementById('prep-chat-input');
+const prepTargetRoleInput = document.getElementById('prep-target-role');
+const prepActiveSessionTitle = document.getElementById('prep-active-session-title');
+const btnNewPrepChat = document.getElementById('btn-new-prep-chat');
+const btnTogglePrepHistory = document.getElementById('btn-toggle-prep-history');
+const btnClosePrepHistory = document.getElementById('btn-close-prep-history');
+const prepHistoryDrawer = document.getElementById('prep-history-drawer');
+const prepHistoryCount = document.getElementById('prep-history-count');
+const prepSessionsList = document.getElementById('prep-sessions-list');
+
+function getPrepSessions() {
+  try {
+    const raw = localStorage.getItem(SESSIONS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function savePrepSessions(sessions) {
+  localStorage.setItem(SESSIONS_STORAGE_KEY, JSON.stringify(sessions));
+  renderPrepSessionsList();
+  updatePrepHistoryCount();
+}
+
+function updatePrepHistoryCount() {
+  if (prepHistoryCount) {
+    const sessions = getPrepSessions();
+    prepHistoryCount.textContent = sessions.length;
+  }
+}
+
+function renderPrepEmptyState() {
+  if (!prepChatMessages) return;
+  prepChatMessages.innerHTML = `
+    <div id="prep-chat-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto; padding: 30px; max-width: 400px;">
+      <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 1.5rem; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);">🎓</div>
+      <h4 style="margin: 0 0 6px 0; font-size: 1.05rem; font-weight: 700;">Interview Preparation Assistant</h4>
+      <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Click a quick prompt above or ask role-specific technical and behavioral questions tailored to your profile.</p>
+    </div>
+  `;
+}
+
+function createNewPrepSession() {
+  const sessions = getPrepSessions();
+  const targetRole = prepTargetRoleInput ? prepTargetRoleInput.value.trim() : '';
+
+  const newSession = {
+    id: 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+    title: 'New Conversation',
+    createdAt: new Date().toISOString(),
+    messages: [],
+    targetRole: targetRole || '',
+    documentContext: currentPrepDoc ? { ...currentPrepDoc } : null
+  };
+
+  sessions.unshift(newSession);
+  activePrepSessionId = newSession.id;
+  localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, activePrepSessionId);
+  savePrepSessions(sessions);
+  loadSessionIntoUI(newSession);
+}
+
+function loadSessionIntoUI(session) {
+  if (!session) {
+    renderPrepEmptyState();
+    if (prepActiveSessionTitle) prepActiveSessionTitle.textContent = '• New Conversation';
+    return;
+  }
+
+  activePrepSessionId = session.id;
+  localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, activePrepSessionId);
+
+  // Set Target Role
+  if (prepTargetRoleInput) {
+    prepTargetRoleInput.value = session.targetRole || '';
+  }
+
+  // Set Document Context
+  currentPrepDoc = session.documentContext || null;
+  if (currentPrepDoc) {
+    if (prepDocName) prepDocName.textContent = currentPrepDoc.filename;
+    if (prepDocStats) prepDocStats.textContent = `(${currentPrepDoc.count || currentPrepDoc.text.length} chars)`;
+    if (prepDocPillContainer) prepDocPillContainer.classList.remove('hidden');
+    if (prepDropzone) prepDropzone.classList.add('hidden');
+    if (prepUploadStatus) {
+      prepUploadStatus.className = 'status';
+      prepUploadStatus.textContent = 'Document context active.';
+    }
+  } else {
+    if (prepDocFileInput) prepDocFileInput.value = '';
+    if (prepDocPillContainer) prepDocPillContainer.classList.add('hidden');
+    if (prepDropzone) prepDropzone.classList.remove('hidden');
+    if (prepUploadStatus) prepUploadStatus.textContent = '';
+  }
+
+  // Set Title
+  if (prepActiveSessionTitle) {
+    prepActiveSessionTitle.textContent = '• ' + (session.title || 'New Conversation');
+  }
+
+  // Render Messages
+  if (prepChatMessages) {
+    prepChatMessages.innerHTML = '';
+    if (!session.messages || session.messages.length === 0) {
+      renderPrepEmptyState();
+    } else {
+      session.messages.forEach(msg => {
+        const sender = (msg.role === 'user') ? 'user' : 'ai';
+        appendPrepChatMessage(sender, msg.content);
+      });
+      prepChatMessages.scrollTop = prepChatMessages.scrollHeight;
+    }
+  }
+
+  renderPrepSessionsList();
+}
+
+function deletePrepSession(sessionId, event) {
+  if (event) event.stopPropagation();
+  let sessions = getPrepSessions();
+  sessions = sessions.filter(s => s.id !== sessionId);
+  savePrepSessions(sessions);
+
+  if (activePrepSessionId === sessionId) {
+    if (sessions.length > 0) {
+      loadSessionIntoUI(sessions[0]);
+    } else {
+      createNewPrepSession();
+    }
+  } else {
+    renderPrepSessionsList();
+    updatePrepHistoryCount();
+  }
+}
+
+function renderPrepSessionsList() {
+  if (!prepSessionsList) return;
+
+  const sessions = getPrepSessions();
+  if (sessions.length === 0) {
+    prepSessionsList.innerHTML = `
+      <div style="padding: 20px 10px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+        No saved conversations.<br>Click <strong>+ New Chat</strong> to begin.
+      </div>
+    `;
+    return;
+  }
+
+  prepSessionsList.innerHTML = '';
+  sessions.forEach(session => {
+    const item = document.createElement('div');
+    const isActive = session.id === activePrepSessionId;
+    item.className = `prep-session-item ${isActive ? 'active' : ''}`;
+
+    const dateStr = session.createdAt ? new Date(session.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recent';
+
+    item.innerHTML = `
+      <div class="prep-session-item-content">
+        <span class="prep-session-item-title">${escapePrepHTML(session.title || 'Conversation')}</span>
+        <span class="prep-session-item-date">${dateStr} • ${(session.messages || []).length} msgs</span>
+      </div>
+      <button class="prep-session-delete-btn" title="Delete conversation" data-id="${session.id}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+      </button>
+    `;
+
+    item.addEventListener('click', () => {
+      loadSessionIntoUI(session);
+    });
+
+    const delBtn = item.querySelector('.prep-session-delete-btn');
+    if (delBtn) {
+      delBtn.addEventListener('click', (e) => {
+        deletePrepSession(session.id, e);
+      });
+    }
+
+    prepSessionsList.appendChild(item);
+  });
+}
+
+// Document upload handler
+if (prepDocFileInput) {
+  prepDocFileInput.addEventListener('change', async () => {
+    const file = prepDocFileInput.files[0];
+    if (!file) return;
+
+    if (prepUploadStatus) {
+      prepUploadStatus.className = 'status';
+      prepUploadStatus.textContent = `Extracting text from ${file.name}...`;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('/internships/upload-prep-doc', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Document extraction failed');
+
+      currentPrepDoc = {
+        filename: data.filename,
+        text: data.extracted_text,
+        count: data.character_count || data.extracted_text.length
+      };
+
+      if (prepDocName) prepDocName.textContent = data.filename;
+      if (prepDocStats) prepDocStats.textContent = `(${currentPrepDoc.count} chars)`;
+      if (prepDocPillContainer) prepDocPillContainer.classList.remove('hidden');
+      if (prepDropzone) prepDropzone.classList.add('hidden');
+      if (prepUploadStatus) {
+        prepUploadStatus.className = 'status';
+        prepUploadStatus.textContent = 'Document context active.';
+      }
+
+      // Update current session's document context
+      const sessions = getPrepSessions();
+      const currentSession = sessions.find(s => s.id === activePrepSessionId);
+      if (currentSession) {
+        currentSession.documentContext = { ...currentPrepDoc };
+        savePrepSessions(sessions);
+      }
+    } catch (err) {
+      if (prepUploadStatus) {
+        prepUploadStatus.className = 'status error';
+        prepUploadStatus.textContent = err.message;
+      }
+    }
+  });
+}
+
+// Clear prep doc handler
+if (btnClearPrepDoc) {
+  btnClearPrepDoc.addEventListener('click', () => {
+    currentPrepDoc = null;
+    if (prepDocFileInput) prepDocFileInput.value = '';
+    if (prepDocPillContainer) prepDocPillContainer.classList.add('hidden');
+    if (prepDropzone) prepDropzone.classList.remove('hidden');
+    if (prepUploadStatus) prepUploadStatus.textContent = '';
+
+    // Update current session's document context
+    const sessions = getPrepSessions();
+    const currentSession = sessions.find(s => s.id === activePrepSessionId);
+    if (currentSession) {
+      currentSession.documentContext = null;
+      savePrepSessions(sessions);
+    }
+  });
+}
+
+// Target role input update handler
+if (prepTargetRoleInput) {
+  prepTargetRoleInput.addEventListener('input', () => {
+    const sessions = getPrepSessions();
+    const currentSession = sessions.find(s => s.id === activePrepSessionId);
+    if (currentSession) {
+      currentSession.targetRole = prepTargetRoleInput.value.trim();
+      savePrepSessions(sessions);
+    }
+  });
+}
+
+// Append message in Interview Prep Chat
+function appendPrepChatMessage(sender, text) {
+  const emptyState = document.getElementById('prep-chat-empty-state');
+  if (emptyState) {
+    emptyState.remove();
+  }
+
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${sender === 'user' ? 'user' : 'ai'}`;
+  bubble.style.maxWidth = '85%';
+  bubble.style.padding = '12px 16px';
+  bubble.style.borderRadius = '14px';
+  bubble.style.fontSize = '0.88rem';
+  bubble.style.lineHeight = '1.6';
+
+  if (sender === 'user') {
+    bubble.style.alignSelf = 'flex-end';
+    bubble.style.borderTopRightRadius = '4px';
+    bubble.style.background = 'linear-gradient(135deg, #6366f1 0%, #38bdf8 100%)';
+    bubble.style.color = '#ffffff';
+    bubble.textContent = text;
+  } else {
+    bubble.style.alignSelf = 'flex-start';
+    bubble.style.borderTopLeftRadius = '4px';
+    bubble.style.border = '1px solid var(--border-subtle)';
+    bubble.style.background = 'var(--bg-subtle)';
+    bubble.style.color = 'var(--text-secondary)';
+    bubble.innerHTML = formatBotMessage(text);
+  }
+
+  if (prepChatMessages) {
+    prepChatMessages.appendChild(bubble);
+    prepChatMessages.scrollTop = prepChatMessages.scrollHeight;
+  }
+  return bubble;
+}
+
+// Interview Prep Chat Submit
+if (prepChatForm) {
+  prepChatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const message = prepChatInput.value.trim();
+    if (!message) return;
+
+    // Retrieve active session or create new one
+    const sessions = getPrepSessions();
+    let currentSession = sessions.find(s => s.id === activePrepSessionId);
+    if (!currentSession) {
+      currentSession = {
+        id: 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+        title: 'New Conversation',
+        createdAt: new Date().toISOString(),
+        messages: [],
+        targetRole: prepTargetRoleInput ? prepTargetRoleInput.value.trim() : '',
+        documentContext: currentPrepDoc ? { ...currentPrepDoc } : null
+      };
+      sessions.unshift(currentSession);
+      activePrepSessionId = currentSession.id;
+      localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, activePrepSessionId);
+    }
+
+    // Auto-generate title from 1st message
+    if (!currentSession.messages || currentSession.messages.length === 0) {
+      const cleanTitle = message.replace(/\n/g, ' ').trim();
+      currentSession.title = cleanTitle.length > 35 ? cleanTitle.slice(0, 32) + '...' : cleanTitle;
+      if (prepActiveSessionTitle) {
+        prepActiveSessionTitle.textContent = '• ' + currentSession.title;
+      }
+    }
+
+    appendPrepChatMessage('user', message);
+    prepChatInput.value = '';
+
+    const thinkingBubble = appendPrepChatMessage('ai', 'Preparing response...');
+    const targetRole = prepTargetRoleInput ? prepTargetRoleInput.value.trim() : (currentSession.targetRole || '');
+    currentSession.targetRole = targetRole;
+    currentSession.documentContext = currentPrepDoc ? { ...currentPrepDoc } : null;
+
+    try {
+      const payload = {
+        message: message,
+        candidate_profile: currentCandidate,
+        document_context: currentPrepDoc ? currentPrepDoc.text : null,
+        target_role: targetRole || null,
+        history: currentSession.messages || []
+      };
+
+      const res = await fetch('/internships/interview-prep-assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Interview prep assistant error');
+
+      const botReply = data.reply || data.response || '';
+      thinkingBubble.innerHTML = formatBotMessage(botReply);
+
+      if (!currentSession.messages) currentSession.messages = [];
+      currentSession.messages.push({ role: 'user', content: message });
+      currentSession.messages.push({ role: 'assistant', content: botReply });
+
+      savePrepSessions(sessions);
+    } catch (err) {
+      thinkingBubble.textContent = `Error: ${err.message}`;
+    }
+  });
+}
+
+// Quick action chips
+document.querySelectorAll('.prep-chip-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const promptText = btn.getAttribute('data-prompt');
+    if (prepChatInput && promptText) {
+      prepChatInput.value = promptText;
+      if (prepChatForm) {
+        prepChatForm.dispatchEvent(new Event('submit'));
+      }
     }
   });
 });
 
+// New Chat Button
+if (btnNewPrepChat) {
+  btnNewPrepChat.addEventListener('click', () => {
+    createNewPrepSession();
+  });
+}
+
+// History Toggle Buttons
+if (btnTogglePrepHistory) {
+  btnTogglePrepHistory.addEventListener('click', () => {
+    if (prepHistoryDrawer) {
+      prepHistoryDrawer.classList.toggle('hidden');
+    }
+  });
+}
+
+if (btnClosePrepHistory) {
+  btnClosePrepHistory.addEventListener('click', () => {
+    if (prepHistoryDrawer) {
+      prepHistoryDrawer.classList.add('hidden');
+    }
+  });
+}
+
+// Initialize Sessions on startup
+function initInterviewPrepSessions() {
+  const sessions = getPrepSessions();
+  const savedActiveId = localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY);
+  let active = sessions.find(s => s.id === savedActiveId);
+  if (!active && sessions.length > 0) {
+    active = sessions[0];
+  }
+  if (active) {
+    loadSessionIntoUI(active);
+  } else {
+    createNewPrepSession();
+  }
+  updatePrepHistoryCount();
+}
+
+syncCandidateToPrepTab();
+initInterviewPrepSessions();
 loadApplications();

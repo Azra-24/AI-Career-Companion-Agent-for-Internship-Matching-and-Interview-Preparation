@@ -224,3 +224,168 @@ body { font-family: var(--font-sans); background: var(--bg-main); color: var(--t
   border-color: #a855f7 !important;
   color: #a855f7 !important;
 }
+
+.chat-bubble strong {
+  font-family: inherit;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* Reset button hover styles */
+#chat-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Chat Input Form focus states */
+#chat-form:focus-within {
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Send button styles */
+#chat-send-btn {
+  transition: all 0.2s ease !important;
+}
+
+#chat-send-btn:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.5) !important;
+  opacity: 0.95 !important;
+}
+
+/* Sparkle icon pulse animation */
+@keyframes sparkle-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+  }
+}
+
+#chat-empty-state div {
+  animation: sparkle-pulse 2s infinite ease-in-out;
+}
+
+/* ================= INTERVIEW PREP AGENT STYLES ================= */
+.prep-chip-btn {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prep-chip-btn:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #818cf8;
+  transform: translateY(-1px);
+}
+
+.prep-chat-wrapper:focus-within {
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.15);
+}
+
+.prep-session-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 8px;
+}
+
+.prep-session-item:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.prep-session-item.active {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.prep-session-item-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.prep-session-item-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prep-session-item.active .prep-session-item-title {
+  color: #818cf8;
+}
+
+.prep-session-item-date {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.prep-session-delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.prep-session-delete-btn:hover {
+  opacity: 1;
+  color: var(--error);
+  background: rgba(244, 63, 94, 0.12);
+}
+
+@media (max-width: 860px) {
+  .prep-control-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .prep-history-drawer {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+  }
+}

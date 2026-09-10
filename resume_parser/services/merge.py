@@ -26,10 +26,10 @@ def merge_extracted_data(
     # NAME
     # ---------------------------------------------------------
     merged["full_name"] = str(
-        llm_result.get("full_name")
-        or llm_result.get("name")
-        or regex_result.get("name")
+        regex_result.get("name")
         or regex_result.get("full_name")
+        or llm_result.get("full_name")
+        or llm_result.get("name")
         or ""
     ).strip()
 

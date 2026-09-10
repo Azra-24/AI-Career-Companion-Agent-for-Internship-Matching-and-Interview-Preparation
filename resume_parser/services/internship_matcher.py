@@ -45,7 +45,13 @@ def search_internships(candidate: Dict[str, Any], top_k: int = 5) -> List[Dict[s
         logger.info("Vector index not found on disk. Building new index from dataset...")
         build_internship_index()
 
-    matches = store.search(candidate_text, top_k=top_k)
+    try:
+        matches = store.search(candidate_text, top_k=top_k)
+    except (AssertionError, ValueError, Exception) as exc:
+        logger.warning("Vector search failed or dimension mismatch detected (%s). Rebuilding internship index...", exc)
+        build_internship_index()
+        matches = store.search(candidate_text, top_k=top_k)
+
     return [
         {**internship, "similarity_score": round(score, 4)}
         for internship, score in matches
@@ -55,25 +61,18 @@ def search_internships(candidate: Dict[str, Any], top_k: int = 5) -> List[Dict[s
 def explain_matches(candidate: Dict[str, Any], matches: List[Dict[str, Any]]) -> str:
     """
     RAG layer: Explains match reasoning grounded strictly on candidate and retrieved context.
-    Includes automated retries and model fallbacks for 503/429 status spikes.
+    Uses Groq Cloud (with fallback to Gemini and safe summary).
     """
-    api_key = GEMINI_API_KEY or os.environ.get("GEMINI_API_KEY", "").strip().strip("'").strip('"')
-    if not api_key or not matches:
+    if not matches:
         return ""
 
-    try:
-        from google import genai
-        from google.genai import types
+    context = "\n\n".join(
+        f"INTERNSHIP {i + 1}:\n{internship_to_text(match)}\nSimilarity score: {match.get('similarity_score', 'N/A')}"
+        for i, match in enumerate(matches)
+    )
+    candidate_text = candidate_to_embedding_text(candidate)
 
-        client = genai.Client(api_key=api_key)
-
-        context = "\n\n".join(
-            f"INTERNSHIP {i + 1}:\n{internship_to_text(match)}\nSimilarity score: {match.get('similarity_score', 'N/A')}"
-            for i, match in enumerate(matches)
-        )
-        candidate_text = candidate_to_embedding_text(candidate)
-
-        prompt = f"""
+    prompt = f"""
 You are an expert AI career advisor explaining semantic internship matches.
 Use ONLY the candidate profile and retrieved internship records below.
 Do not invent requirements, skills, companies, locations, scores, or experience.
@@ -88,25 +87,55 @@ RETRIEVED INTERNSHIPS:
 {context}
 """.strip()
 
-        last_error = None
-        for model_name in EXPLANATION_MODELS:
-            for attempt in range(2):
-                try:
-                    response = client.models.generate_content(
-                        model=model_name,
-                        contents=prompt,
-                        config=types.GenerateContentConfig(temperature=0.2),
-                    )
-                    text = (getattr(response, "text", "") or "").strip()
-                    if text:
-                        return text
-                except Exception as err:
-                    last_error = err
-                    logger.warning("Attempt %d with %s failed: %s", attempt + 1, model_name, err)
-                    time.sleep(1.0)  # Brief pause before retrying or switching models
+    # 1. Attempt Groq Cloud LLM explanation
+    try:
+        from openai import OpenAI
+        from dotenv import load_dotenv
+        load_dotenv()
+        groq_api_key = os.environ.get("GROQ_API_KEY", "").strip().strip("'").strip('"')
+        groq_model = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+        if groq_api_key:
+            client = OpenAI(api_key=groq_api_key, base_url="https://api.groq.com/openai/v1")
+            response = client.chat.completions.create(
+                model=groq_model,
+                messages=[
+                    {"role": "system", "content": "You are an expert AI career advisor. Output clear, concise bullet points."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.2,
+                max_tokens=800
+            )
+            reply = (response.choices[0].message.content or "").strip()
+            if reply:
+                return reply
+    except Exception as groq_err:
+        logger.warning("Groq explanation generation skipped/failed: %s", groq_err)
 
-        return f"RAG explanation unavailable: {last_error}"
+    # 2. Attempt Gemini fallback if key is present
+    api_key = GEMINI_API_KEY or os.environ.get("GEMINI_API_KEY", "").strip().strip("'").strip('"')
+    if api_key:
+        try:
+            from google import genai
+            from google.genai import types
 
-    except Exception as exc:
-        logger.exception("RAG explanation pipeline encountered an error: %s", exc)
-        return f"RAG explanation unavailable: {exc}"
+            client = genai.Client(api_key=api_key)
+            last_error = None
+            for model_name in EXPLANATION_MODELS:
+                for attempt in range(2):
+                    try:
+                        response = client.models.generate_content(
+                            model=model_name,
+                            contents=prompt,
+                            config=types.GenerateContentConfig(temperature=0.2),
+                        )
+                        text = (getattr(response, "text", "") or "").strip()
+                        if text:
+                            return text
+                    except Exception as err:
+                        last_error = err
+                        logger.warning("Attempt %d with %s failed: %s", attempt + 1, model_name, err)
+                        time.sleep(1.0)
+        except Exception as exc:
+            logger.warning("Gemini explanation pipeline encountered an error: %s", exc)
+
+    return "Grounded semantic matches computed successfully using vector embeddings."

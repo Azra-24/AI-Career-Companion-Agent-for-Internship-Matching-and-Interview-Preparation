@@ -7,8 +7,8 @@ client = TestClient(app)
 
 def test_ats_score_success():
     mock_client = MagicMock()
-    mock_response = MagicMock()
-    mock_response.text = """
+    mock_choice = MagicMock()
+    mock_choice.message.content = """
     {
       "overall_score": 82,
       "grade": "Strong / Interview Ready",
@@ -24,7 +24,7 @@ def test_ats_score_success():
       "keyword_suggestions": ["FastAPI", "React", "Docker"]
     }
     """
-    mock_client.models.generate_content.return_value = mock_response
+    mock_client.chat.completions.create.return_value = MagicMock(choices=[mock_choice])
 
     payload = {
         "candidate": {
@@ -37,7 +37,7 @@ def test_ats_score_success():
         }
     }
 
-    with patch("routers.internships._get_gemini_client", return_value=mock_client):
+    with patch("routers.internships._get_groq_client", return_value=mock_client):
         response = client.post("/internships/ats-score", json=payload)
         
     assert response.status_code == 200
@@ -47,4 +47,4 @@ def test_ats_score_success():
     assert data["breakdown"]["impact_metrics"] == 20
     assert len(data["strengths"]) == 3
     assert "FastAPI" in data["keyword_suggestions"]
-    mock_client.models.generate_content.assert_called_once()
+    mock_client.chat.completions.create.assert_called_once()

@@ -17,7 +17,9 @@ def extract_text_from_file(file_path: Path) -> str:
         return extract_text_from_pdf(file_path)
     if suffix == ".docx":
         return extract_text_from_docx(file_path)
-    raise ValueError("Unsupported file format. Please upload a PDF or DOCX file.")
+    if suffix in [".txt", ".text"]:
+        return file_path.read_text(encoding="utf-8", errors="ignore").strip()
+    raise ValueError("Unsupported file format. Please upload a PDF, DOCX, or TXT file.")
 
 
 def extract_text_from_pdf(file_path: Path) -> str:

@@ -126,18 +126,32 @@ class InternshipVectorStore:
         if k <= 0:
             return []
 
+        # FAISS dimension validation
+        if self.index is not None and hasattr(self.index, "d") and self.index.d != query_vec.shape[0]:
+            logger.warning(
+                "FAISS dimension mismatch: index dimension is %d but query vector dimension is %d",
+                self.index.d, query_vec.shape[0]
+            )
+            raise AssertionError(f"FAISS dimension mismatch: index dimension is {self.index.d} but query vector is {query_vec.shape[0]}")
+
         # FAISS search
         if self.index is not None:
-            scores, indices = self.index.search(query_vec.reshape(1, -1), k)
-            results = []
-            for score, idx in zip(scores[0], indices[0]):
-                idx_int = int(idx)
-                if 0 <= idx_int < len(self.metadata):
-                    results.append((self.metadata[idx_int], float(score)))
-            return results
+            try:
+                scores, indices = self.index.search(query_vec.reshape(1, -1), k)
+                results = []
+                for score, idx in zip(scores[0], indices[0]):
+                    idx_int = int(idx)
+                    if 0 <= idx_int < len(self.metadata):
+                        results.append((self.metadata[idx_int], float(score)))
+                return results
+            except (AssertionError, Exception) as err:
+                logger.warning("FAISS search raised error (%s)", err)
+                raise
 
         # NumPy fallback
         if self.vectors is not None:
+            if self.vectors.shape[1] != query_vec.shape[0]:
+                raise AssertionError(f"NumPy vector dimension mismatch: {self.vectors.shape[1]} vs {query_vec.shape[0]}")
             similarities = np.dot(self.vectors, query_vec)
             top_indices = np.argsort(similarities)[::-1][:k]
             return [(self.metadata[i], float(similarities[i])) for i in top_indices]

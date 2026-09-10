@@ -62,3 +62,11 @@ def on_startup() -> None:
     except Exception:
         logger.exception("Failed to initialize database tables during startup")
         raise
+
+    # Verify and initialize internship vector index
+    try:
+        from resume_parser.services.internship_matcher import build_internship_index
+        build_internship_index()
+        logger.info("Internship vector index initialized and verified on startup.")
+    except Exception as exc:
+        logger.warning("Could not auto-initialize internship index on startup: %s", exc)
