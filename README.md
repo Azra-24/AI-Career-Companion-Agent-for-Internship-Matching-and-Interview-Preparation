@@ -245,6 +245,8 @@ The project uses **Pytest** for testing major application components, including:
 
 ## Challenges and Solutions
 
+## Challenges and Solutions
+
 | Challenge | Solution |
 |---|---|
 | Slow AI responses | Switched from Gemini API to Groq API |
@@ -253,7 +255,8 @@ The project uses **Pytest** for testing major application components, including:
 | Inconsistent resume data | Combined Regex with AI-based parsing |
 | Keyword-based matching limitations | Implemented embeddings and FAISS |
 | Need for relevant AI responses | Implemented RAG-based retrieval |
-| Chatbot unable to retain conversation context | Implemented session/chat ID-based conversation memory to retain context within the current chat |
+| Chatbot unable to retain conversation context | Implemented session/chat ID-based conversation memory |
+| PostgreSQL configuration in an SQLite-based project | Removed the unused PostgreSQL configuration and standardized the project on SQLite |
 | Maintaining application state | Used browser localStorage |
 
 ## Future Enhancements
