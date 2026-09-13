@@ -1,155 +1,212 @@
-# Hybrid Resume Parsing System
+# AI Career Companion Agent for Internship Matching and Interview Preparation
 
-A production-ready FastAPI application that parses resumes from PDF and DOCX files using a hybrid approach:
+An AI-powered career assistance platform that helps students and job seekers analyze resumes, find suitable internships, identify skill gaps, generate cover letters, track applications, and prepare for interviews.
 
-- Regex for deterministic fields such as email, phone, LinkedIn, and GitHub
-- Google Gemini for contextual extraction such as summary, skills, education, and experience
-- A merge layer that prioritizes regex values for contact fields
+
+## Project Overview
+
+The AI Career Companion Agent provides an end-to-end career assistance experience. It analyzes uploaded resumes using document extraction, regular expressions, and AI-based analysis. The extracted candidate profile is used for semantic internship matching through embeddings and FAISS.
+
+The platform also provides ATS analysis, skill-gap analysis, personalized cover letter generation, interview preparation, application tracking, and AI-powered career assistance.
+
+## Key Features
+
+* User registration, login, and session management
+* PDF and DOCX resume upload and parsing
+* Hybrid resume analysis using Regex and Groq AI
+* AI-based candidate profile extraction
+* Semantic internship matching using FAISS
+* 12-role internship catalog with INR (₹) stipend information
+* RAG-based internship explanations
+* ATS resume analysis
+* Skill gap analysis
+* Personalized cover letter generation
+* 5-stage application tracker:
+
+  * Applied
+  * Skill Screening
+  * Technical Assessment
+  * Interview
+  * Offer
+* AI interview preparation
+* Interview Prep Agent with Document Q&A
+* Career Copilot with defined AI safety guardrails
+* Interactive dashboard with responsive UI
+* Collapsible sidebar and theme switching
+
+## System Workflow
+
+<img width="785" height="1024" alt="image" src="https://github.com/user-attachments/assets/afc62188-f214-4c7a-b43c-71f4c7aa7431" />
+
+
+## AI Safety and Platform Guardrails
+
+The platform includes defined AI safety and usage boundaries based on the project's policy document:
+
+`data/policy.pdf`
+
+### Career Copilot Guardrails
+
+Career Copilot is designed to provide career-related assistance while following the defined platform boundaries. The guardrails are based on `data/policy.pdf` and help keep responses relevant to career guidance and appropriate platform use.
+
+### Interview Preparation Guardrails
+
+The Interview Prep Agent follows defined anti-cheating guidelines. It is intended for preparation and learning rather than assisting with dishonest behavior during assessments or interviews.
+
+The Interview Prep Agent also supports the **STAR method**:
+
+* Situation
+* Task
+* Action
+* Result
+
+This helps users structure and improve behavioral interview responses.
+
+## Technology Stack
+
+| Category          | Technology                      |
+| ----------------- | ------------------------------- |
+| Languages         | Python, JavaScript, HTML5, CSS3 |
+| Backend           | FastAPI                         |
+| Frontend          | Vanilla JavaScript, HTML5, CSS3 |
+| AI / LLM          | Groq API                        |
+| Resume Processing | PyMuPDF, python-docx, Regex     |
+| Vector Search     | FAISS                           |
+| RAG               | Vector RAG                      |
+| Database          | SQLite                          |
+| Client Storage    | localStorage                    |
+| Testing           | Pytest                          |
+| Version Control   | Git, GitHub                     |
+
+## Project Structure
+
+```text
+AI-Career-Companion-Agent/
+│
+├── data/
+├── database/
+├── frontend/
+├── resume_parser/
+├── routers/
+├── schemas/
+├── services/
+├── tests/
+├── uploads/
+├── utils/
+├── vector_db/
+│
+├── .env.example
+├── app.py
+├── main.py
+├── requirements.txt
+├── pytest.ini
+└── README.md
+```
 
 ## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Azra-24/AI-Career-Companion-Agent-for-Internship-Matching-and-Interview-Preparation.git
+cd AI-Career-Companion-Agent-for-Internship-Matching-and-Interview-Preparation
+```
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+For Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Environment Setup
+### 4. Configure Environment Variables
 
-Create a `.env` file in the project root with your Gemini API key:
+Create a `.env` file and add the required API key:
 
 ```env
-GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+GROQ_API_KEY=your_groq_api_key
 ```
 
-## How to Obtain a Gemini API Key
+Do not commit API keys or the `.env` file to GitHub.
 
-1. Visit Google AI Studio.
-2. Create a new API key.
-3. Paste it into the `.env` file above.
+## Running the Application
 
-## Running the Server
+Start the FastAPI server:
 
 ```bash
 uvicorn app:app --reload
 ```
 
-The app will be available at `http://127.0.0.1:8000`.
+Application:
 
-## API Endpoints
-
-### POST /auth/register
-
-Register a new user.
-
-### POST /auth/login
-
-Authenticate and receive a JWT token.
-
-### POST /auth/logout
-
-Logout endpoint.
-
-### POST /auth/forgot-password
-
-Request a password reset.
-
-### POST /auth/reset-password
-
-Reset a password.
-
-### GET /users/profile
-
-Get the authenticated user profile.
-
-### PUT /users/profile
-
-Update the authenticated user profile.
-
-### PUT /users/change-password
-
-Change the authenticated user's password.
-
-### DELETE /users/profile
-
-Delete the authenticated user account.
-
-### POST /resume/upload
-
-Upload a resume, parse it with the existing hybrid parser, and save parsed data to the database.
-
-### POST /parse-resume
-
-Legacy parser endpoint for PDF/DOCX resume parsing without database persistence.
-
-### Sample Request
-
-```bash
-curl -X POST "http://127.0.0.1:8000/parse-resume" \
-  -F "file=@sample_resume.pdf"
+```text
+http://127.0.0.1:8000
 ```
 
-### Sample Response
+Swagger API documentation:
 
-```json
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "phone": "+1-555-123-4567",
-  "linkedin": "https://www.linkedin.com/in/johndoe",
-  "github": "https://github.com/johndoe",
-  "address": "",
-  "professional_summary": "Experienced software engineer.",
-  "education": [],
-  "skills": ["Python", "FastAPI"],
-  "technical_skills": ["Python", "FastAPI"],
-  "soft_skills": ["Communication"],
-  "experience": [],
-  "projects": [],
-  "certifications": [],
-  "internships": [],
-  "languages": [],
-  "achievements": [],
-  "publications": []
-}
+```text
+http://127.0.0.1:8000/docs
 ```
 
-## Project Structure
+## User Workflow
 
-- `app.py`: FastAPI entrypoint
-- `routes/upload.py`: Resume upload and parsing endpoint
-- `services/file_parser.py`: PDF/DOCX text extraction
-- `services/regex_parser.py`: Regex-based extraction
-- `services/llm_parser.py`: Gemini-based extraction
-- `services/merge.py`: Merging strategy
-- `models/schema.py`: Pydantic response models
+1. Register or log in.
+2. Upload a resume.
+3. Review the extracted candidate profile.
+4. View suitable internship recommendations.
+5. Analyze ATS score and skill gaps.
+6. Generate a personalized cover letter.
+7. Track applications through the application tracker.
+8. Practice interviews using the Interview Prep Agent.
+9. Use Document Q&A for preparation-related document queries.
+10. Use Career Copilot for career guidance.
 
-## RAG-Based Internship Matching
+## Testing
 
-The application now includes an internship retrieval pipeline:
+The project uses **Pytest** for testing major application components, including:
 
-1. Parse the candidate resume with the existing Regex + Gemini hybrid parser.
-2. Convert the structured candidate data into an embedding document.
-3. Embed the internship dataset with Gemini Embeddings (`gemini-embedding-001`).
-4. Store normalized internship vectors in FAISS using cosine similarity via inner product.
-5. Retrieve the top relevant internships with similarity scores.
-6. Optionally pass only the candidate data and retrieved internships to Gemini for a grounded RAG explanation.
+* Authentication
+* Resume processing
+* PDF/DOCX parsing
+* API functionality
+* Internship matching
+* AI-powered features
+* User workflows
 
-### Internship endpoints
+## Challenges and Solutions
 
-- `GET /internships` — view the internship dataset.
-- `POST /internships/index` — generate/rebuild the FAISS internship index.
-- `POST /internships/match` — match an already extracted candidate JSON object.
-- `POST /internships/match-resume` — demo endpoint used by the simple frontend; upload PDF/DOCX and receive parsed candidate data plus matches.
+| Challenge | Solution |
+|---|---|
+| Slow AI responses | Switched from Gemini API to Groq API |
+| Inaccurate resume parsing during initial development | Refined the AI prompt with clearer instructions and structured extraction requirements |
+| Different resume formats | Added PDF/DOCX-specific extraction |
+| Inconsistent resume data | Combined Regex with AI-based parsing |
+| Keyword-based matching limitations | Implemented embeddings and FAISS |
+| Need for relevant AI responses | Implemented RAG-based retrieval |
+| Chatbot unable to retain conversation context | Implemented session/chat ID-based conversation memory to retain context within the current chat |
+| Maintaining application state | Used browser localStorage |
 
-### Frontend
+## Future Enhancements
 
-Open `http://127.0.0.1:8000/` after starting the server. The page provides resume upload, extracted candidate information, top internship matches, similarity scores, and the grounded RAG explanation.
+* Real-time internship and job listing integration
+* Advanced application analytics
+* Advanced interview evaluation
+* Voice-based interview preparation
+* Cloud deployment
+* Expanded career analytics
 
-### Building the vector database
+## License
 
-The first matching request requires a FAISS index. Run:
-
-```bash
-curl -X POST http://127.0.0.1:8000/internships/index
-```
-
-or use the `/internships/index` endpoint from Swagger at `http://127.0.0.1:8000/docs`.
+This project is licensed under the MIT License.
