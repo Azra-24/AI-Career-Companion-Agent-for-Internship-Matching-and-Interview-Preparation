@@ -82,24 +82,82 @@ This helps users structure and improve behavioral interview responses.
 
 ```text
 AI-Career-Companion-Agent/
-│
 ├── data/
+│   ├── faiss_policy_index/
+│   │   ├── chunks.json
+│   │   └── index.faiss
+│   ├── internships.json
+│   └── policy.pdf
+│
 ├── database/
+│   ├── applications.json
+│   ├── connection.py
+│   └── models.py
+│
 ├── frontend/
+│   ├── app.js
+│   ├── index.html
+│   └── style.css
+│
 ├── resume_parser/
+│   ├── models/
+│   │   └── schema.py
+│   ├── routes/
+│   │   └── upload.py
+│   ├── services/
+│   │   ├── candidate_profile.py
+│   │   ├── embedding_service.py
+│   │   ├── file_parser.py
+│   │   ├── internship_matcher.py
+│   │   ├── llm_parser.py
+│   │   ├── merge.py
+│   │   ├── policy_rag.py
+│   │   ├── regex_parser.py
+│   │   └── vector_store.py
+│   ├── app.py
+│   └── config.py
+│
 ├── routers/
+│   ├── auth.py
+│   ├── internships.py
+│   ├── resume.py
+│   └── users.py
+│
 ├── schemas/
+│   ├── resume_schema.py
+│   └── user_schema.py
+│
 ├── services/
+│   ├── file_parser.py
+│   ├── llm_parser.py
+│   ├── merge.py
+│   └── regex_parser.py
+│
 ├── tests/
-├── uploads/
+│   ├── test_applications.py
+│   ├── test_ats.py
+│   ├── test_auth.py
+│   ├── test_chat.py
+│   ├── test_cover_letter.py
+│   ├── test_internship_matching.py
+│   ├── test_interview_prep.py
+│   └── test_resume_parsing.py
+│
 ├── utils/
+│   └── security.py
+│
 ├── vector_db/
+│   ├── internships.faiss
+│   └── internships_metadata.json
 │
 ├── .env.example
+├── .gitignore
+├── LICENSE
 ├── app.py
 ├── main.py
-├── requirements.txt
+├── psql.sql
 ├── pytest.ini
+├── requirements.txt
 └── README.md
 ```
 
