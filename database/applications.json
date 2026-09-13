@@ -2378,5 +2378,192 @@
     "learning_recommendations": [
       "All required skills met! Review core concepts and practice behaviour questions."
     ]
+  },
+  {
+    "id": "APP-155",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "AI/ML Engineer Intern",
+    "company": "TechNova AI",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 20.0,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "PyTorch",
+      "TensorFlow",
+      "NLP",
+      "FAISS"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on PyTorch to close the gap.",
+      "Complete a tutorial/project focusing on TensorFlow to close the gap.",
+      "Complete a tutorial/project focusing on NLP to close the gap.",
+      "Complete a tutorial/project focusing on FAISS to close the gap."
+    ]
+  },
+  {
+    "id": "APP-156",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Generative AI Research Intern",
+    "company": "Cognitive Labs",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 20.0,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Hugging Face",
+      "LangChain",
+      "Gemini API",
+      "Vector RAG"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Hugging Face to close the gap.",
+      "Complete a tutorial/project focusing on LangChain to close the gap.",
+      "Complete a tutorial/project focusing on Gemini API to close the gap.",
+      "Complete a tutorial/project focusing on Vector RAG to close the gap."
+    ]
+  },
+  {
+    "id": "APP-157",
+    "user_email": "azra123@gmail.com",
+    "internship_title": "Computer Vision Intern",
+    "company": "VisionEdge Robotics",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 40.0,
+    "matched_skills": [
+      "Python",
+      "NumPy"
+    ],
+    "missing_skills": [
+      "OpenCV",
+      "YOLO",
+      "PyTorch"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on OpenCV to close the gap.",
+      "Complete a tutorial/project focusing on YOLO to close the gap.",
+      "Complete a tutorial/project focusing on PyTorch to close the gap."
+    ]
+  },
+  {
+    "id": "APP-158",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
   }
 ]
