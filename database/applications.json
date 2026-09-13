@@ -1147,5 +1147,1236 @@
     "learning_recommendations": [
       "All required skills met! Review core concepts and practice behaviour questions."
     ]
+  },
+  {
+    "id": "APP-127",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-128",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-129",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-130",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-131",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-132",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-133",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-134",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-135",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-12",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-136",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-137",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-138",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-139",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-140",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-141",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-142",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-143",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-144",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-145",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-146",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-147",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-148",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-149",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-150",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-151",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-152",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-153",
+    "user_email": "test_applicant@example.com",
+    "internship_title": "Software Engineering Intern",
+    "company": "Google",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 33.33333333333333,
+    "matched_skills": [
+      "Python"
+    ],
+    "missing_skills": [
+      "Go",
+      "Docker"
+    ],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "Complete a tutorial/project focusing on Go to close the gap.",
+      "Complete a tutorial/project focusing on Docker to close the gap."
+    ]
+  },
+  {
+    "id": "APP-154",
+    "user_email": "azrask24@gmail.com",
+    "internship_title": "AI/ML Intern",
+    "company": "TechNova",
+    "mode": "Hybrid \u2022 6 months",
+    "applied_date": "2026-09-13",
+    "status": "Screening",
+    "readiness_score": 100.0,
+    "matched_skills": [
+      "Python",
+      "Machine Learning",
+      "NumPy",
+      "Pandas"
+    ],
+    "missing_skills": [],
+    "preferred_missing": [],
+    "application_stages": [
+      {
+        "stage": "Resume Submitted",
+        "status": "Completed"
+      },
+      {
+        "stage": "Skill & Profile Screening",
+        "status": "In Progress"
+      },
+      {
+        "stage": "Technical Assessment",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Manager Interview",
+        "status": "Upcoming"
+      },
+      {
+        "stage": "Final Offer",
+        "status": "Pending"
+      }
+    ],
+    "learning_recommendations": [
+      "All required skills met! Review core concepts and practice behaviour questions."
+    ]
   }
 ]

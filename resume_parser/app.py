@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
 app = FastAPI(
-    title="AI Internship Agent Backend",
+    title="CareerCompanion",
     description="Hybrid resume parsing with RAG-based internship matching.",
     version="2.0.0",
 )

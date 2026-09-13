@@ -8,7 +8,7 @@ client = TestClient(app)
 def test_chat_assistant_valid_policy_query():
     mock_client = MagicMock()
     mock_choice = MagicMock()
-    mock_choice.message.content = "The Internship Assistant platform parser accepts PDF and DOCX formats."
+    mock_choice.message.content = "The CareerCompanion platform parser accepts PDF and DOCX formats."
     mock_client.chat.completions.create.return_value = MagicMock(choices=[mock_choice])
 
     payload = {
@@ -42,7 +42,7 @@ def test_chat_assistant_out_of_scope_guardrail():
         
     assert response.status_code == 200
     data = response.json()
-    assert data["reply"] == "I'm sorry, but I can only help with questions about the Internship Assistant product. For other inquiries, please contact product support."
+    assert data["reply"] == "I'm sorry, but I can only help with questions about the CareerCompanion product. For other inquiries, please contact product support."
 
 
 def test_chat_assistant_safety_refusal():
@@ -54,7 +54,7 @@ def test_chat_assistant_safety_refusal():
     assert response.status_code == 200
     data = response.json()
     assert "reply" in data
-    assert data["reply"] == "I cannot assist with requests involving violence, weapons, or harmful activities. I can only assist with questions regarding the Internship Assistant platform."
+    assert data["reply"] == "I cannot assist with requests involving violence, weapons, or harmful activities. I can only assist with questions regarding the CareerCompanion platform."
 
 
 def test_chat_assistant_with_history():
@@ -90,4 +90,4 @@ def test_chat_assistant_greeting():
     assert response.status_code == 200
     data = response.json()
     assert "reply" in data
-    assert "Hello! How can I help you with Internship Assistant today?" in data["reply"]
+    assert "Hello! How can I help you with CareerCompanion today?" in data["reply"]
